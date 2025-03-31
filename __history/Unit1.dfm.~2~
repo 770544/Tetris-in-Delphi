@@ -37,7 +37,7 @@ object Form1: TForm1
     Color = clBlack
     ParentBackground = False
     TabOrder = 0
-    object NextMinoLabel: TLabel
+    object NextBlockLabel: TLabel
       Left = 130
       Top = 9
       Width = 44
@@ -106,7 +106,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
-    object HoldMinoLabel: TLabel
+    object HoldBlockLabel: TLabel
       Left = 130
       Top = 36
       Width = 49

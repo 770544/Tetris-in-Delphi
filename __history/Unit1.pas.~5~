@@ -11,14 +11,14 @@ type
     Control: TPanel;
     BackGround: TPanel;
     LevelLabel: TLabel;
-    NextMinoLabel: TLabel;
+    NextBlockLabel: TLabel;
     LevelLabel2: TLabel;
     Alpha: TTimer;
     MediaPlayer1: TMediaPlayer;
     LineLabel1: TLabel;
     Label1: TLabel;
     Beta: TTimer;
-    HoldMinoLabel: TLabel;
+    HoldBlockLabel: TLabel;
     Shape1: TShape;
     procedure FormShow(Sender: TObject); // TShape 복제본 몸통 생성
     procedure CreateBlock(CloneType: String; Parent: TWinControl; X: integer; Y: integer; Size: integer; Color: TColor);
@@ -28,7 +28,6 @@ type
     procedure AlphaTimer(Sender: TObject);
     procedure BetaTimer(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure CreateMino(CloneType: String);
   private
     { Private declarations }
   public
@@ -89,132 +88,6 @@ begin
       Block[CreateBlockCount] := NewShape;        // CreateBlockCount번째 블록 배열에 TShape 대입
       CreateBlockCount := CreateBlockCount + 1;   // CreateBlock + 1
     end;
-end;
-
-procedure TForm1.CreateMino(CloneType: String);
-begin
-  if CloneType = 'Mino' then
-  begin
-    if NextMino = 0 then // 현재 블록 생성
-    begin
-      CreateBlock('Block', BackGround, 75, 0, 25, clAqua);
-      CreateBlock('Block', BackGround, 100, 0, 25, clAqua);
-      CreateBlock('Block', BackGround, 125, 0, 25, clAqua);
-      CreateBlock('Block', BackGround, 150, 0, 25, clAqua);
-    end;
-
-  if NextMino = 1 then
-    begin
-      CreateBlock('Block', BackGround, 100, 0, 25, clYellow);
-      CreateBlock('Block', BackGround, 125, 0, 25, clYellow);
-      CreateBlock('Block', BackGround, 100, 25, 25, clYellow);
-      CreateBlock('Block', BackGround, 125, 25, 25, clYellow);
-    end;
-
-  if NextMino = 2 then
-    begin
-      CreateBlock('Block', BackGround, 75, 0, 25, clRed);
-      CreateBlock('Block', BackGround, 100, 0, 25, clRed);
-      CreateBlock('Block', BackGround, 100, 25, 25, clRed);
-      CreateBlock('Block', BackGround, 125, 25, 25, clRed);
-    end;
-
-  if NextMino = 3 then
-    begin
-      CreateBlock('Block', BackGround, 125, 0, 25, clGreen);
-      CreateBlock('Block', BackGround, 100, 0, 25, clGreen);
-      CreateBlock('Block', BackGround, 100, 25, 25, clGreen);
-      CreateBlock('Block', BackGround, 75, 25, 25, clGreen);
-    end;
-
-  if NextMino = 4 then
-    begin
-      CreateBlock('Block', BackGround, 125, 25, 25, clBlue);
-      CreateBlock('Block', BackGround, 100, 25, 25, clBlue);
-      CreateBlock('Block', BackGround, 75, 25, 25, clBlue);
-      CreateBlock('Block', BackGround, 75, 0, 25, clBlue);
-    end;
-
-  if NextMino = 5 then
-    begin
-      CreateBlock('Block', BackGround, 125, 25, 25, clWebOrange);
-      CreateBlock('Block', BackGround, 125, 0, 25, clWebOrange);
-      CreateBlock('Block', BackGround, 100, 25, 25, clWebOrange);
-      CreateBlock('Block', BackGround, 75, 25, 25, clWebOrange);
-    end;
-
-  if NextMino = 6 then
-    begin
-      CreateBlock('Block', BackGround, 100, 0, 25, clPurple);
-      CreateBlock('Block', BackGround, 100, 25, 25, clPurple);
-      CreateBlock('Block', BackGround, 125, 25, 25, clPurple);
-      CreateBlock('Block', BackGround, 75, 25, 25, clPurple);
-    end;
-  end;
-
-  if CloneType = 'NextMino' then
-  begin
-    if NextMino = 0 then // 다음 블록 정하기
-    begin
-      CreateBlock('NextBlock', Control, 180, 17, 10, clAqua);
-      CreateBlock('NextBlock', Control, 190, 17, 10, clAqua);
-      CreateBlock('NextBlock', Control, 200, 17, 10, clAqua);
-      CreateBlock('NextBlock', Control, 210, 17, 10, clAqua);
-    end;
-
-  if NextMino = 1 then
-    begin
-      CreateBlock('NextBlock', Control, 180, 10, 10, clYellow);
-      CreateBlock('NextBlock', Control, 190, 10, 10, clYellow);
-      CreateBlock('NextBlock', Control, 180, 20, 10, clYellow);
-      CreateBlock('NextBlock', Control, 190, 20, 10, clYellow);
-    end;
-
-  if NextMino = 2 then
-    begin
-      CreateBlock('NextBlock', Control, 180, 10, 10, clRed);
-      CreateBlock('NextBlock', Control, 190, 10, 10, clRed);
-      CreateBlock('NextBlock', Control, 190, 20, 10, clRed);
-      CreateBlock('NextBlock', Control, 200, 20, 10, clRed);
-    end;
-
-  if NextMino = 3 then
-    begin
-      CreateBlock('NextBlock', Control, 180, 20, 10, clGreen);
-      CreateBlock('NextBlock', Control, 190, 20, 10, clGreen);
-      CreateBlock('NextBlock', Control, 190, 10, 10, clGreen);
-      CreateBlock('NextBlock', Control, 200, 10, 10, clGreen);
-    end;
-
-  if NextMino = 4 then
-    begin
-      CreateBlock('NextBlock', Control, 180, 20, 10, clBlue);
-      CreateBlock('NextBlock', Control, 180, 10, 10, clBlue);
-      CreateBlock('NextBlock', Control, 190, 10, 10, clBlue);
-      CreateBlock('NextBlock', Control, 200, 10, 10, clBlue);
-    end;
-
-  if NextMino = 5 then
-    begin
-      CreateBlock('NextBlock', Control, 180, 10, 10, clWebOrange);
-      CreateBlock('NextBlock', Control, 190, 10, 10, clWebOrange);
-      CreateBlock('NextBlock', Control, 200, 10, 10, clWebOrange);
-      CreateBlock('NextBlock', Control, 200, 20, 10, clWebOrange);
-    end;
-
-  if NextMino = 6 then
-    begin
-      CreateBlock('NextBlock', Control, 180, 20, 10, clPurple);
-      CreateBlock('NextBlock', Control, 190, 20, 10, clPurple);
-      CreateBlock('NextBlock', Control, 190, 10, 10, clPurple);
-      CreateBlock('NextBlock', Control, 200, 10, 10, clPurple);
-    end;
-  end;
-
-  if CloneType = 'HoldMino' then
-  begin
-
-  end;
 end;
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word;
@@ -358,10 +231,120 @@ begin
         end;
     end;
 
-  CreateMino('Mino');
+  if NextMino = 0 then // 현재 블록 생성
+    begin
+      CreateBlock('Block', BackGround, 75, 0, 25, clAqua);
+      CreateBlock('Block', BackGround, 100, 0, 25, clAqua);
+      CreateBlock('Block', BackGround, 125, 0, 25, clAqua);
+      CreateBlock('Block', BackGround, 150, 0, 25, clAqua);
+    end;
+
+  if NextMino = 1 then
+    begin
+      CreateBlock('Block', BackGround, 100, 0, 25, clYellow);
+      CreateBlock('Block', BackGround, 125, 0, 25, clYellow);
+      CreateBlock('Block', BackGround, 100, 25, 25, clYellow);
+      CreateBlock('Block', BackGround, 125, 25, 25, clYellow);
+    end;
+
+  if NextMino = 2 then
+    begin
+      CreateBlock('Block', BackGround, 75, 0, 25, clRed);
+      CreateBlock('Block', BackGround, 100, 0, 25, clRed);
+      CreateBlock('Block', BackGround, 100, 25, 25, clRed);
+      CreateBlock('Block', BackGround, 125, 25, 25, clRed);
+    end;
+
+  if NextMino = 3 then
+    begin
+      CreateBlock('Block', BackGround, 125, 0, 25, clGreen);
+      CreateBlock('Block', BackGround, 100, 0, 25, clGreen);
+      CreateBlock('Block', BackGround, 100, 25, 25, clGreen);
+      CreateBlock('Block', BackGround, 75, 25, 25, clGreen);
+    end;
+
+  if NextMino = 4 then
+    begin
+      CreateBlock('Block', BackGround, 125, 25, 25, clBlue);
+      CreateBlock('Block', BackGround, 100, 25, 25, clBlue);
+      CreateBlock('Block', BackGround, 75, 25, 25, clBlue);
+      CreateBlock('Block', BackGround, 75, 0, 25, clBlue);
+    end;
+
+  if NextMino = 5 then
+    begin
+      CreateBlock('Block', BackGround, 125, 25, 25, clWebOrange);
+      CreateBlock('Block', BackGround, 125, 0, 25, clWebOrange);
+      CreateBlock('Block', BackGround, 100, 25, 25, clWebOrange);
+      CreateBlock('Block', BackGround, 75, 25, 25, clWebOrange);
+    end;
+
+  if NextMino = 6 then
+    begin
+      CreateBlock('Block', BackGround, 100, 0, 25, clPurple);
+      CreateBlock('Block', BackGround, 100, 25, 25, clPurple);
+      CreateBlock('Block', BackGround, 125, 25, 25, clPurple);
+      CreateBlock('Block', BackGround, 75, 25, 25, clPurple);
+    end;
+
   Randomize;
   NextMino := Random(7); // 다음 블록 정하기
-  CreateMino('NextMino');
+
+  if NextMino = 0 then // 다음 블록 정하기
+    begin
+      CreateBlock('NextBlock', Control, 180, 17, 10, clAqua);
+      CreateBlock('NextBlock', Control, 190, 17, 10, clAqua);
+      CreateBlock('NextBlock', Control, 200, 17, 10, clAqua);
+      CreateBlock('NextBlock', Control, 210, 17, 10, clAqua);
+    end;
+
+  if NextMino = 1 then
+    begin
+      CreateBlock('NextBlock', Control, 180, 10, 10, clYellow);
+      CreateBlock('NextBlock', Control, 190, 10, 10, clYellow);
+      CreateBlock('NextBlock', Control, 180, 20, 10, clYellow);
+      CreateBlock('NextBlock', Control, 190, 20, 10, clYellow);
+    end;
+
+  if NextMino = 2 then
+    begin
+      CreateBlock('NextBlock', Control, 180, 10, 10, clRed);
+      CreateBlock('NextBlock', Control, 190, 10, 10, clRed);
+      CreateBlock('NextBlock', Control, 190, 20, 10, clRed);
+      CreateBlock('NextBlock', Control, 200, 20, 10, clRed);
+    end;
+
+  if NextMino = 3 then
+    begin
+      CreateBlock('NextBlock', Control, 180, 20, 10, clGreen);
+      CreateBlock('NextBlock', Control, 190, 20, 10, clGreen);
+      CreateBlock('NextBlock', Control, 190, 10, 10, clGreen);
+      CreateBlock('NextBlock', Control, 200, 10, 10, clGreen);
+    end;
+
+  if NextMino = 4 then
+    begin
+      CreateBlock('NextBlock', Control, 180, 20, 10, clBlue);
+      CreateBlock('NextBlock', Control, 180, 10, 10, clBlue);
+      CreateBlock('NextBlock', Control, 190, 10, 10, clBlue);
+      CreateBlock('NextBlock', Control, 200, 10, 10, clBlue);
+    end;
+
+  if NextMino = 5 then
+    begin
+      CreateBlock('NextBlock', Control, 180, 10, 10, clWebOrange);
+      CreateBlock('NextBlock', Control, 190, 10, 10, clWebOrange);
+      CreateBlock('NextBlock', Control, 200, 10, 10, clWebOrange);
+      CreateBlock('NextBlock', Control, 200, 20, 10, clWebOrange);
+    end;
+
+  if NextMino = 6 then
+    begin
+      CreateBlock('NextBlock', Control, 180, 20, 10, clPurple);
+      CreateBlock('NextBlock', Control, 190, 20, 10, clPurple);
+      CreateBlock('NextBlock', Control, 190, 10, 10, clPurple);
+      CreateBlock('NextBlock', Control, 200, 10, 10, clPurple);
+    end;
 end;
 
 procedure TForm1.MediaPlayer1Notify(Sender: TObject);
