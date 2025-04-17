@@ -178,6 +178,11 @@ begin
       // 하드드롭
     end;
 
+    VK_Shift:
+    begin
+      // 홀드
+    end;
+
     Ord('A'):
     begin
       Rotate90;
@@ -236,8 +241,9 @@ begin
 
       Block[i].Free;
       Block[i] := nil;
-      CreateMino;
     end;
+
+    CreateMino;
 end;
 
 procedure TForm1.MoveMino(X, Y: integer);
