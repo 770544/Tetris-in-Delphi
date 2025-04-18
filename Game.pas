@@ -21,7 +21,7 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure Rotate90;
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure InsertLockedBlock;
+    procedure AddLockedBlock;
   private
     { Private declarations }
   public
@@ -48,7 +48,7 @@ var
   Level : integer;                                // 레벨, 50Line당 1
   Block : array [0..3] of TShape;
   CreateBlockCount : integer;                     // 만들어진 블록 수 카운트
-  LockedBlock : array [0..19, 0..9] of Boolean;   // 고정된 블록
+  LockedBlock : array [0..19, 0..9] of TShape;   // 고정된 블록
   Speed : integer;                                // 미노의 하강 속도
 
   {
@@ -62,6 +62,49 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm1.AddLockedBlock;
+var
+  i : integer;
+  NewLockedBlock : TShape;
+begin
+  for I := 0 to 3 do
+  begin
+    NewLockedBlock := TShape.Create(Game);
+    NewLockedBlock.Parent	:= Game;
+    NewLockedBlock.Width := 30;
+    NewLockedBlock.Height	:= 30;
+    NewLockedBlock.Left	:= Block[i].Left;
+    NewLockedBlock.Top := Block[i].Top;
+
+    case NowMino of
+      0:
+        NewLockedBlock.Brush.Color := clAqua;
+
+      1:
+        NewLockedBlock.Brush.Color := clYellow;
+
+      2:
+        NewLockedBlock.Brush.Color := clRed;
+
+      3:
+        NewLockedBlock.Brush.Color := clGreen;
+
+      4:
+        NewLockedBlock.Brush.Color := clBlue;
+
+      5:
+        NewLockedBlock.Brush.Color := RGB(255, 165, 0);
+
+      6:
+        NewLockedBlock.Brush.Color := clPurple;
+    end;
+
+    LockedBlock[(Block[i].Top div 30), (Block[i].Left div 30)] := NewLockedBlock;
+    Block[i].Free;
+    Block[i] := nil;
+  end;
+end;
 
 procedure TForm1.CreateBlock(X, Y : integer; Color : TColor);
 var
@@ -200,60 +243,14 @@ begin
   end;
 end;
 
-procedure TForm1.InsertLockedBlock;
-var
-  i : integer;
-  NewLockedBlock : TShape;
-begin
-  for I := 0 to 3 do
-    begin
-      LockedBlock[Block[i].Top div 30, Block[i].Left div 30] := True; // LockedBlock 배열에 할당
-
-      NewLockedBlock := TShape.Create(Game);
-      NewLockedBlock.Parent	:= Game;
-      NewLockedBlock.Left := Block[i].Left;
-      NewLockedBlock.Top := Block[i].Top;
-      NewLockedBlock.Height := 30;
-      NewLockedBlock.Width := 30;
-
-      case NowMino of
-        0:
-          NewLockedBlock.Brush.Color := clAqua;
-
-        1:
-          NewLockedBlock.Brush.Color := clYellow;
-
-        2:
-          NewLockedBlock.Brush.Color := clRed;
-
-        3:
-          NewLockedBlock.Brush.Color := clGreen;
-
-        4:
-          NewLockedBlock.Brush.Color := clBlue;
-
-        5:
-          NewLockedBlock.Brush.Color := RGB(255, 165, 0);
-
-        6:
-          NewLockedBlock.Brush.Color := clPurple;
-      end;
-
-      Block[i].Free;
-      Block[i] := nil;
-    end;
-
-    CreateMino;
-end;
-
 procedure TForm1.MoveMino(X, Y: integer);
 var
   i, j : integer;
-  StopFlag : boolean; // 프로시져 중지
-  ILBF : boolean;     // Insert Locked Block Flag
+  StopFlag : boolean;   // 프로시져 중지
+  ChangeFlag : boolean;  // 블록을 LockedBlock으로 만들어주는 마법
 begin
   StopFlag := False;
-  ILBF := False;
+  ChangeFlag := False;
 
   for I := 0 to 3 do
   begin
@@ -274,7 +271,7 @@ begin
         if (Block[i].Top + Y > 570) then
         begin
           StopFlag := True;
-          ILBF := True;
+          ChangeFlag := True;
         end;
 
         if ((Block[i].Left div 30) + (X div 30) < 0) then
@@ -282,10 +279,10 @@ begin
           StopFlag := True;         // (Block[i].Left div 30) + (X div 30) < 0 일때 인덱스 접근 오류 발생 방지
         end;
 
-        if (StopFlag = False) and (LockedBlock[(Block[i].Top div 30) + (Y div 30), (Block[i].Left div 30) + (X div 30)]) then
+        if (StopFlag = False) and (LockedBlock[(Block[i].Top div 30) + (Y div 30), (Block[i].Left div 30) + (X div 30)] <> nil) then
         begin
           StopFlag := True;
-          ILBF := True;  // 미노가 움직임이 블록에 막힐 예정이라면 InsertShapeFlag := True
+          ChangeFlag := True;  // 미노가 움직임이 블록에 막힐 예정이라면 InsertShapeFlag := True
         end;
     end;
   end;
@@ -299,26 +296,27 @@ begin
     end;
   end;
 
-  // 줄 없애는 코드
-
-  if ILBF = True then
-    InsertLockedBlock;
+  if ChangeFlag = True then
+  begin
+    AddLockedBlock;
+    CreateMino;
+  end;
 end;
 
 procedure TForm1.Rotate90;
 var
   i : integer;
-  DX, DY : integer; // 중점과의 거리, DistanceX and DistanceY
+  DistanceX, DistanceY : integer; // 중점과의 거리
 begin
   for I := 0 to 3 do
   begin
     if i <> 1 then
     begin
-      DX := Block[i].Left - Block[1].Left;
-      DY := Block[i].Top - Block[1].Top;
+      DistanceX := Block[i].Left - Block[1].Left;
+      DistanceY := Block[i].Top - Block[1].Top;
 
-      Block[i].Left := Block[1].Left + DY;
-      Block[i].Top := Block[1].Top - DX;
+      Block[i].Left := Block[1].Left + DistanceY;
+      Block[i].Top := Block[1].Top - DistanceX;
     end;
   end;
 end;
