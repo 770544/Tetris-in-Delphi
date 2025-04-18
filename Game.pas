@@ -248,6 +248,7 @@ var
   i, j : integer;
   StopFlag : boolean;   // 프로시져 중지
   ChangeFlag : boolean;  // 블록을 LockedBlock으로 만들어주는 마법
+  Count : integer;
 begin
   StopFlag := False;
   ChangeFlag := False;
@@ -300,6 +301,28 @@ begin
   begin
     AddLockedBlock;
     CreateMino;
+  end;
+
+  for i := 0 to 19 do
+  begin
+    Count := 0;
+
+    for j := 0 to 9 do
+    begin
+      if LockedBlock[i, j] <> nil then
+      begin
+        Count := Count + 1;
+      end;
+    end;
+
+    if Count = 10 then
+    begin
+      for j := 0 to 9 do
+      begin
+        LockedBlock[i, j].Free;
+        LockedBlock[i, j] := nil;
+      end;
+    end;
   end;
 end;
 

@@ -35,28 +35,28 @@ var
   NowMino : integer;
 
   {
-    0 : Ië¯¸ë…¸
-    1 : Oë¯¸ë…¸
-    2 : Zë¯¸ë…¸
-    3 : Së¯¸ë…¸
-    4 : Jë¯¸ë…¸
-    5 : Lë¯¸ë…¸
-    6 : Të¯¸ë…¸
+    0 : I¹Ì³ë
+    1 : O¹Ì³ë
+    2 : Z¹Ì³ë
+    3 : S¹Ì³ë
+    4 : J¹Ì³ë
+    5 : L¹Ì³ë
+    6 : T¹Ì³ë
   }
 
-  Line : integer;                                 // ì§€ìš´ ì¤„
-  Level : integer;                                // ë ˆë²¨, 50Lineë‹¹ 1
+  Line : integer;                                 // Áö¿î ÁÙ
+  Level : integer;                                // ·¹º§, 50Line´ç 1
   Block : array [0..3] of TShape;
-  CreateBlockCount : integer;                     // ë§Œë“¤ì–´ì§„ ë¸”ë¡ ìˆ˜ ì¹´ìš´íŠ¸
-  LockedBlock : array [0..19, 0..9] of TShape;   // ê³ ì •ëœ ë¸”ë¡
-  Speed : integer;                                // ë¯¸ë…¸ì˜ í•˜ê°• ì†ë„
+  CreateBlockCount : integer;                     // ¸¸µé¾îÁø ºí·Ï ¼ö Ä«¿îÆ®
+  LockedBlock : array [0..19, 0..9] of TShape;   // °íÁ¤µÈ ºí·Ï
+  Speed : integer;                                // ¹Ì³ëÀÇ ÇÏ°­ ¼Óµµ
 
   {
-    ë¯¸ë…¸: ì—¬ëŸ¬ê°œì˜ ë¸”ë¡ìœ¼ë¡œ ì´ë£¨ì–´ì§„ ë„í˜•
-    ë¸”ë¡: ë¯¸ë…¸ë¥¼ ì´ë£¨ëŠ” 4ê°œì˜ ì •ì‚¬ê°í˜•
+    ¹Ì³ë: ¿©·¯°³ÀÇ ºí·ÏÀ¸·Î ÀÌ·ç¾îÁø µµÇü
+    ºí·Ï: ¹Ì³ë¸¦ ÀÌ·ç´Â 4°³ÀÇ Á¤»ç°¢Çü
   }
 
-  MoveCount : integer;                            // ë¯¸ë…¸ì˜ ì›€ì§ì„ ì¹´ìš´íŠ¸
+  MoveCount : integer;                            // ¹Ì³ëÀÇ ¿òÁ÷ÀÓ Ä«¿îÆ®
   SoftDrop : boolean;
 
 implementation
@@ -201,35 +201,35 @@ begin
 
   case Key of
     VK_Left:
-      MoveMino(-30, 0); // ì™¼ìª½ìœ¼ë¡œ í•œì¹¸ ì´ë™
+      MoveMino(-30, 0); // ¿ŞÂÊÀ¸·Î ÇÑÄ­ ÀÌµ¿
 
     VK_Right:
-      MoveMino(30, 0);  // ì˜¤ë¥¸ìª½ìœ¼ë¡œ í•œì¹¸ ì´ë™
+      MoveMino(30, 0);  // ¿À¸¥ÂÊÀ¸·Î ÇÑÄ­ ÀÌµ¿
 
     VK_Up:
-      Rotate90;         // 90ë„ íšŒì „
+      Rotate90;         // 90µµ È¸Àü
 
     VK_Down:
     begin
       if SoftDrop = False then
-      Timer1.Interval	:= Timer1.Interval - 500;   // ì†Œí”„íŠ¸ë“œë¡­
+      Timer1.Interval	:= Timer1.Interval - 500;   // ¼ÒÇÁÆ®µå·Ó
       SoftDrop := True;
     end;
 
     VK_Space:
     begin
-      // í•˜ë“œë“œë¡­
+      // ÇÏµåµå·Ó
     end;
 
     VK_Shift:
     begin
-      // í™€ë“œ
+      // È¦µå
     end;
 
     Ord('A'):
     begin
       Rotate90;
-      Rotate90;         // 180ë„ íšŒì „
+      Rotate90;         // 180µµ È¸Àü
     end;
   end;
 end;
@@ -246,9 +246,8 @@ end;
 procedure TForm1.MoveMino(X, Y: integer);
 var
   i, j : integer;
-  StopFlag : boolean;   // í”„ë¡œì‹œì ¸ ì¤‘ì§€
-  ChangeFlag : boolean;  // ë¸”ë¡ì„ LockedBlockìœ¼ë¡œ ë§Œë“¤ì–´ì£¼ëŠ” ë§ˆë²•
-  Count : integer;
+  StopFlag : boolean;   // ÇÁ·Î½ÃÁ® ÁßÁö
+  ChangeFlag : boolean;  // ºí·ÏÀ» LockedBlockÀ¸·Î ¸¸µé¾îÁÖ´Â ¸¶¹ı
 begin
   StopFlag := False;
   ChangeFlag := False;
@@ -256,7 +255,7 @@ begin
   for I := 0 to 3 do
   begin
     if Block[i] = nil then
-    // í•´ì œëœ ê°’ì— ì ‘ê·¼í•  ë•Œ ë°œìƒí•˜ëŠ” ì˜¤ë¥˜ ë°©ì§€
+    // ÇØÁ¦µÈ °ª¿¡ Á¢±ÙÇÒ ¶§ ¹ß»ıÇÏ´Â ¿À·ù ¹æÁö
     begin
       StopFlag := True;
     end;
@@ -267,7 +266,7 @@ begin
     for I := 0 to 3 do
     begin
         if (Block[i].Left + X < 0) or (Block[i].Left + X > 270) then
-          StopFlag := True;         // ë¯¸ë…¸ê°€ í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°€ëŠ” ê²ƒ ë°©ì§€
+          StopFlag := True;         // ¹Ì³ë°¡ È­¸é ¹ÛÀ¸·Î ³ª°¡´Â °Í ¹æÁö
 
         if (Block[i].Top + Y > 570) then
         begin
@@ -277,13 +276,13 @@ begin
 
         if ((Block[i].Left div 30) + (X div 30) < 0) then
         begin
-          StopFlag := True;         // (Block[i].Left div 30) + (X div 30) < 0 ì¼ë•Œ ì¸ë±ìŠ¤ ì ‘ê·¼ ì˜¤ë¥˜ ë°œìƒ ë°©ì§€
+          StopFlag := True;         // (Block[i].Left div 30) + (X div 30) < 0 ÀÏ¶§ ÀÎµ¦½º Á¢±Ù ¿À·ù ¹ß»ı ¹æÁö
         end;
 
         if (StopFlag = False) and (LockedBlock[(Block[i].Top div 30) + (Y div 30), (Block[i].Left div 30) + (X div 30)] <> nil) then
         begin
           StopFlag := True;
-          ChangeFlag := True;  // ë¯¸ë…¸ê°€ ì›€ì§ì„ì´ ë¸”ë¡ì— ë§‰í ì˜ˆì •ì´ë¼ë©´ InsertShapeFlag := True
+          ChangeFlag := True;  // ¹Ì³ë°¡ ¿òÁ÷ÀÓÀÌ ºí·Ï¿¡ ¸·Èú ¿¹Á¤ÀÌ¶ó¸é InsertShapeFlag := True
         end;
     end;
   end;
@@ -302,39 +301,12 @@ begin
     AddLockedBlock;
     CreateMino;
   end;
-
-  for i := 0 to 19 do
-  begin
-    Count := 0;
-
-    for j := 0 to 9 do
-    begin
-      if LockedBlock[i, j] <> nil then
-      begin
-        Count := Count + 1;
-      end;
-    end;
-
-    if Count = 10 then
-    begin
-      for j := 0 to 9 do
-      begin
-        LockedBlock[i + 1, j].Top := LockedBlock[i + 1, j].Top + 30;
-      end;
-
-      for j := 0 to 9 do
-      begin
-        LockedBlock[i, j].Free;
-        LockedBlock[i, j] := nil;
-      end;
-    end;
-  end;
 end;
 
 procedure TForm1.Rotate90;
 var
   i : integer;
-  DistanceX, DistanceY : integer; // ì¤‘ì ê³¼ì˜ ê±°ë¦¬
+  DistanceX, DistanceY : integer; // ÁßÁ¡°úÀÇ °Å¸®
 begin
   for I := 0 to 3 do
   begin
