@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = #47784#50577#47582#52628#44592
-  ClientHeight = 700
+  ClientHeight = 670
   ClientWidth = 300
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 300
-    Height = 100
+    Height = 70
     Align = alTop
     Color = clWhite
     ParentBackground = False
@@ -28,9 +28,9 @@ object Form1: TForm1
     object LineLab: TLabel
       Left = 16
       Top = 16
-      Width = 60
+      Width = 50
       Height = 19
-      Caption = #51460': '#50689
+      Caption = #51460': 0'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
@@ -38,12 +38,12 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
-    object ScoreLab: TLabel
+    object LevelLab: TLabel
       Left = 148
       Top = 16
-      Width = 80
+      Width = 70
       Height = 19
-      Caption = #49688#51456': '#50689
+      Caption = #49688#51456': 0'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
@@ -54,13 +54,14 @@ object Form1: TForm1
   end
   object Game: TPanel
     Left = 0
-    Top = 100
+    Top = 70
     Width = 300
     Height = 600
     Align = alClient
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 76
   end
   object Timer1: TTimer
     Interval = 600

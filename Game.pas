@@ -11,7 +11,7 @@ type
     Menu: TPanel;
     Game: TPanel;
     LineLab: TLabel;
-    ScoreLab: TLabel;
+    LevelLab: TLabel;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -44,20 +44,19 @@ var
     6 : T미노
   }
 
-  Line : integer;                                 // 지운 줄
-  Level : integer;                                // 레벨, 50Line당 1
+  Line : integer;                                // 지운 줄
+  Level : integer;                               // 레벨, 50Line당 1
   Block : array [0..3] of TShape;
-  CreateBlockCount : integer;                     // 만들어진 블록 수 카운트
-  LockedBlock : array [0..19, 0..9] of TShape;   // 고정된 블록
-  Speed : integer;                                // 미노의 하강 속도
+  CreateBlockCount : integer;                    // 만들어진 블록 수 카운트
+  LockedBlock : array [0..19, 0..9] of TShape;   // 고정된 블록                               // 미노의 하강 속도
 
   {
     미노: 여러개의 블록으로 이루어진 도형
     블록: 미노를 이루는 4개의 정사각형
   }
 
-  MoveCount : integer;                            // 미노의 움직임 카운트
   SoftDrop : boolean;
+  Speed : integer;                            // 미노 하강 속도
 
 implementation
 
@@ -112,10 +111,10 @@ var
 begin
   NewBlock := TShape.Create(Game);
   NewBlock.Parent	:= Game;
-  NewBlock.Left := X;
-  NewBlock.Top := Y;
   NewBlock.Height := 30;
   NewBlock.Width := 30;
+  NewBlock.Left := X;
+  NewBlock.Top := Y;
   NewBlock.Brush.Color := Color;
   Block[CreateBlockCount] := NewBlock;
   CreateBlockCount := CreateBlockCount + 1;
@@ -189,7 +188,6 @@ begin
   Randomize;
   NextMino := Random(7);
   CreateMino;
-  MoveCount := 15;
 end;
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -212,7 +210,8 @@ begin
     VK_Down:
     begin
       if SoftDrop = False then
-      Timer1.Interval	:= Timer1.Interval - 500;   // 소프트드롭
+        Timer1.Interval := 100;   // 소프트드롭
+
       SoftDrop := True;
     end;
 
@@ -238,17 +237,19 @@ procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if Key = VK_Down then
   begin
-    Timer1.Interval := Timer1.Interval + 500;
+    Timer1.Interval := Speed;
     SoftDrop := False;
   end;
 end;
 
 procedure TForm1.MoveMino(X, Y: integer);
 var
-  i, j : integer;
+  i, j, k : integer;
   StopFlag : boolean;   // 프로시져 중지
-  ChangeFlag : boolean;  // 블록을 LockedBlock으로 만들어주는 마법
-  Count : integer;
+  ChangeFlag : boolean; // 블록을 LockedBlock으로 만들어주는 마법
+  LockedBlockCount : integer;
+  NewLockedBlock : TShape;
+
 begin
   StopFlag := False;
   ChangeFlag := False;
@@ -267,7 +268,9 @@ begin
     for I := 0 to 3 do
     begin
         if (Block[i].Left + X < 0) or (Block[i].Left + X > 270) then
-          StopFlag := True;         // 미노가 화면 밖으로 나가는 것 방지
+        begin
+          StopFlag := True;    // 미노가 화면 밖으로 나가는 것 방지
+        end;
 
         if (Block[i].Top + Y > 570) then
         begin
@@ -277,13 +280,18 @@ begin
 
         if ((Block[i].Left div 30) + (X div 30) < 0) then
         begin
-          StopFlag := True;         // (Block[i].Left div 30) + (X div 30) < 0 일때 인덱스 접근 오류 발생 방지
+          StopFlag := True;    // (Block[i].Left div 30) + (X div 30) < 0 일때 인덱스 접근 오류 발생 방지
         end;
 
-        if (StopFlag = False) and (LockedBlock[(Block[i].Top div 30) + (Y div 30), (Block[i].Left div 30) + (X div 30)] <> nil) then
+        if (StopFlag = False) and (LockedBlock[(Block[i].Top div 30), (Block[i].Left div 30) + (X div 30)] <> nil) then
         begin
           StopFlag := True;
-          ChangeFlag := True;  // 미노가 움직임이 블록에 막힐 예정이라면 InsertShapeFlag := True
+        end;
+
+        if (StopFlag = False) and (LockedBlock[(Block[i].Top div 30) + (Y div 30), (Block[i].Left div 30)] <> nil) then
+        begin
+          StopFlag := True;
+          ChangeFlag := True;  // 미노가 움직임이 블록에 막힐 예정이라면 ChangeFlag := True
         end;
     end;
   end;
@@ -301,22 +309,37 @@ begin
   begin
     AddLockedBlock;
     CreateMino;
+
+    Timer1.Enabled := False;
+    Timer1.Interval := Speed;
+    Timer1.Enabled := True;
   end;
 
   for i := 0 to 19 do
   begin
-    Count := 0;
+    LockedBlockCount := 0;
 
     for j := 0 to 9 do
     begin
       if LockedBlock[i, j] <> nil then
       begin
-        Count := Count + 1;
+        LockedBlockCount := LockedBlockCount + 1;
       end;
     end;
 
-    if Count = 10 then
+    if LockedBlockCount = 10 then
     begin
+      Line := Line + 1;
+      LineLab.Caption := '줄: ' + IntToStr(Line);
+
+      if Line mod 50 = 0 then
+      begin
+        Level := Level + 1;
+        Speed := Speed - 20;
+        Timer1.Interval := Timer1.Interval - 20;
+        LevelLab.Caption := '수준: ' + IntToStr(Level);
+      end;
+
       for j := 0 to 9 do
       begin
         LockedBlock[i, j].Free;
