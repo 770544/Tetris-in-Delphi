@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = #47784#50577#47582#52628#44592
-  ClientHeight = 670
+  ClientHeight = 730
   ClientWidth = 300
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -56,12 +56,12 @@ object Form1: TForm1
     Left = 0
     Top = 70
     Width = 300
-    Height = 600
+    Height = 660
     Align = alClient
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 76
+    ExplicitHeight = 600
   end
   object Timer1: TTimer
     Interval = 600
