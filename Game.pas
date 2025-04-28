@@ -248,7 +248,6 @@ var
   StopFlag : boolean;       // 프로시져 중지
   ChangeFlag : boolean;     // 블록을 LockedBlock으로 만들어주는 마법
   LockedBlockCount : integer;
-  NewLockedBlock : TShape;
 begin
   StopFlag := False;
   ChangeFlag := False;
