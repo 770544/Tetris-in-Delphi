@@ -61,7 +61,6 @@ object Form1: TForm1
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitHeight = 600
   end
   object Timer1: TTimer
     Interval = 600

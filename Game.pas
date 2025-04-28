@@ -210,14 +210,14 @@ begin
     VK_Down:
     begin
       if SoftDrop = False then
-        Timer1.Interval := 100;   // 소프트드롭
+        Timer1.Interval := 50;   // 소프트드롭
 
       SoftDrop := True;
     end;
 
     VK_Space:
     begin
-      // 하드드롭
+
     end;
 
     VK_Shift:
@@ -355,7 +355,7 @@ begin
             NewLockedBlock.Left	:= LockedBlock[k, j].Left;
             NewLockedBlock.Top := LockedBlock[k, j].Top + 30;
             NewLockedBlock.Brush.Color := LockedBlock[k, j].Brush.Color;
-            LockedBlock[k + 1, j] := NewLockedBlock;
+            LockedBlock[k - 1, j] := NewLockedBlock;
             LockedBlock[k, j].Free;
             LockedBlock[k, j] := nil;
           end;
