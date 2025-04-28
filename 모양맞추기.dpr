@@ -2,7 +2,8 @@ program 모양맞추기;
 
 uses
   Vcl.Forms,
-  Game in 'Game.pas' {Form1};
+  Game in 'Game.pas' {Form1},
+  Option in 'Option.pas' {설정};
 
 {$R *.res}
 
@@ -10,5 +11,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(T설정, 설정);
   Application.Run;
 end.

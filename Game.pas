@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Option;
 
 type
   TForm1 = class(TForm)
@@ -57,6 +57,7 @@ var
 
   SoftDrop : boolean;
   Speed : integer;                            // 미노 하강 속도
+  StopFlag : boolean;
 
 implementation
 
@@ -191,11 +192,7 @@ begin
 end;
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-var
-  i : integer;
-  StopFlag : boolean;
 begin
-  StopFlag := False;
 
   case Key of
     VK_Left:
@@ -210,14 +207,19 @@ begin
     VK_Down:
     begin
       if SoftDrop = False then
+      begin
         Timer1.Interval := 50;   // 소프트드롭
+       end;
 
       SoftDrop := True;
     end;
 
     VK_Space:
     begin
-
+      while StopFlag <> True do
+      begin
+        MoveMino(0, 30);
+      end;
     end;
 
     VK_Shift:
@@ -229,6 +231,20 @@ begin
     begin
       Rotate90;
       Rotate90;         // 180도 회전
+    end;
+
+    VK_Escape:
+    begin
+      if Timer1.Enabled = True then
+      begin
+        Timer1.Enabled := False;
+        설정 := T설정.Create(Self);
+        설정.Show;
+      end else
+      begin
+        Timer1.Enabled := True;
+        설정.Close;
+      end;
     end;
   end;
 end;
@@ -245,7 +261,6 @@ end;
 procedure TForm1.MoveMino(X, Y: integer);
 var
   i, j, k : integer;
-  StopFlag : boolean;       // 프로시져 중지
   ChangeFlag : boolean;     // 블록을 LockedBlock으로 만들어주는 마법
   LockedBlockCount : integer;
 begin
@@ -321,12 +336,12 @@ begin
 
     // 1. 해당 줄이 가득 찼는지 확인
     for j := 0 to 9 do
+    begin
+      if LockedBlock[i, j] <> nil then
       begin
-        if LockedBlock[i, j] <> nil then
-        begin
-          Inc(LockedBlockCount);
-        end;
+        Inc(LockedBlockCount);
       end;
+    end;
 
     // 2. 가득 찬 줄이라면
     if LockedBlockCount = 10 then
