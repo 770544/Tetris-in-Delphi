@@ -314,53 +314,49 @@ begin
     Timer1.Enabled := True;
   end;
 
-  for i := 21 Downto 0 do
+  i := 21;
+
+  while i >= 0 do
   begin
     LockedBlockCount := 0;
 
+    // 1. 해당 줄이 가득 찼는지 확인
     for j := 0 to 9 do
-    begin
-      if LockedBlock[i, j] <> nil then
       begin
-        LockedBlockCount := LockedBlockCount + 1;
+        if LockedBlock[i, j] <> nil then
+        begin
+          Inc(LockedBlockCount);
+        end;
       end;
-    end;
 
+    // 2. 가득 찬 줄이라면
     if LockedBlockCount = 10 then
     begin
-      Line := Line + 1;
-      LineLab.Caption := '줄: ' + IntToStr(Line);
-
-      if Line mod 50 = 0 then
-      begin
-        Level := Level + 1;
-        Speed := Speed - 20;
-        Timer1.Interval := Timer1.Interval - 20;
-        LevelLab.Caption := '수준: ' + IntToStr(Level);
-      end;
-
+      // 3. 줄 삭제
       for j := 0 to 9 do
       begin
         LockedBlock[i, j].Free;
         LockedBlock[i, j] := nil;
+      end;
 
-        for k := 20 Downto 0 do
+      // 4. 위의 모든 줄을 아래로 한 칸씩 이동
+      for k := i - 1 downto 0 do
+      begin
+        for j := 0 to 9 do
         begin
           if LockedBlock[k, j] <> nil then
           begin
-            NewLockedBlock := TShape.Create(Game);
-            NewLockedBlock.Parent := Game;
-            NewLockedBlock.Width := 30;
-            NewLockedBlock.Height	:= 30;
-            NewLockedBlock.Left	:= LockedBlock[k, j].Left;
-            NewLockedBlock.Top := LockedBlock[k, j].Top + 30;
-            NewLockedBlock.Brush.Color := LockedBlock[k, j].Brush.Color;
-            LockedBlock[k - 1, j] := NewLockedBlock;
-            LockedBlock[k, j].Free;
+            LockedBlock[k, j].Top := LockedBlock[k, j].Top + 30;
+            LockedBlock[k + 1, j] := LockedBlock[k, j];
             LockedBlock[k, j] := nil;
           end;
         end;
       end;
+      // 5. 같은 줄을 다시 검사 (줄들이 내려와서 또 가득 찰 수도 있음)
+    end
+    else
+    begin
+      Dec(i);
     end;
   end;
 end;

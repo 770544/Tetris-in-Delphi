@@ -48,7 +48,7 @@ var
   Level : integer;                               // 레벨, 50Line당 1
   Block : array [0..3] of TShape;
   CreateBlockCount : integer;                    // 만들어진 블록 수 카운트
-  LockedBlock : array [0..19, 0..9] of TShape;   // 고정된 블록                               // 미노의 하강 속도
+  LockedBlock : array [0..21, 0..9] of TShape;   // 고정된 블록                               // 미노의 하강 속도
 
   {
     미노: 여러개의 블록으로 이루어진 도형
@@ -124,52 +124,52 @@ procedure TForm1.CreateMino;
 begin
   case NextMino of
     0 : begin
-      CreateBlock(90, 0, clAqua);
-      CreateBlock(120, 0, clAqua);
-      CreateBlock(150, 0, clAqua);
-      CreateBlock(180, 0, clAqua);
+      CreateBlock(90, 60, clAqua);
+      CreateBlock(120, 60, clAqua);
+      CreateBlock(150, 60, clAqua);
+      CreateBlock(180, 60, clAqua);
     end;
 
     1 : begin
-      CreateBlock(120, 0, clYellow);
-      CreateBlock(120, 30, clYellow);
-      CreateBlock(150, 0, clYellow);
-      CreateBlock(150, 30, clYellow);
+      CreateBlock(120, 60, clYellow);
+      CreateBlock(120, 90, clYellow);
+      CreateBlock(150, 60, clYellow);
+      CreateBlock(150, 90, clYellow);
     end;
 
     2 : begin
-      CreateBlock(90, 0, clRed);
-      CreateBlock(120, 0, clRed);
-      CreateBlock(120, 30, clRed);
-      CreateBlock(150, 30, clRed);
+      CreateBlock(90, 60, clRed);
+      CreateBlock(120, 60, clRed);
+      CreateBlock(120, 90, clRed);
+      CreateBlock(150, 90, clRed);
     end;
 
     3 : begin
-      CreateBlock(150, 0, clGreen);
-      CreateBlock(120, 0, clGreen);
-      CreateBlock(120, 30, clGreen);
-      CreateBlock(90, 30, clGreen);
+      CreateBlock(150, 60, clGreen);
+      CreateBlock(120, 60, clGreen);
+      CreateBlock(120, 90, clGreen);
+      CreateBlock(90, 90, clGreen);
     end;
 
     4 : begin
-      CreateBlock(150, 30, clBlue);
-      CreateBlock(120, 30, clBlue);
-      CreateBlock(90, 30, clBlue);
-      CreateBlock(90, 0, clBlue);
+      CreateBlock(150, 90, clBlue);
+      CreateBlock(120, 90, clBlue);
+      CreateBlock(90, 90, clBlue);
+      CreateBlock(90, 60, clBlue);
     end;
 
     5 : begin
-      CreateBlock(150, 0, RGB(255, 165, 0));
-      CreateBlock(120, 0, RGB(255, 165, 0));
-      CreateBlock(90, 0, RGB(255, 165, 0));
-      CreateBlock(90, 30, RGB(255, 165, 0));
+      CreateBlock(150, 60, RGB(255, 165, 0));
+      CreateBlock(120, 60, RGB(255, 165, 0));
+      CreateBlock(90, 60, RGB(255, 165, 0));
+      CreateBlock(90, 90, RGB(255, 165, 0));
     end;
 
     6 : begin
-      CreateBlock(90, 0, clPurple);
-      CreateBlock(120, 0, clPurple);
-      CreateBlock(120, 30, clPurple);
-      CreateBlock(150, 0, clPurple);
+      CreateBlock(90, 60, clPurple);
+      CreateBlock(120, 60, clPurple);
+      CreateBlock(120, 90, clPurple);
+      CreateBlock(150, 60, clPurple);
     end;
   end;
 
@@ -210,14 +210,14 @@ begin
     VK_Down:
     begin
       if SoftDrop = False then
-        Timer1.Interval := 100;   // 소프트드롭
+        Timer1.Interval := 50;   // 소프트드롭
 
       SoftDrop := True;
     end;
 
     VK_Space:
     begin
-      // 하드드롭
+
     end;
 
     VK_Shift:
@@ -245,11 +245,10 @@ end;
 procedure TForm1.MoveMino(X, Y: integer);
 var
   i, j, k : integer;
-  StopFlag : boolean;   // 프로시져 중지
-  ChangeFlag : boolean; // 블록을 LockedBlock으로 만들어주는 마법
+  StopFlag : boolean;       // 프로시져 중지
+  ChangeFlag : boolean;     // 블록을 LockedBlock으로 만들어주는 마법
   LockedBlockCount : integer;
   NewLockedBlock : TShape;
-
 begin
   StopFlag := False;
   ChangeFlag := False;
@@ -272,7 +271,7 @@ begin
           StopFlag := True;    // 미노가 화면 밖으로 나가는 것 방지
         end;
 
-        if (Block[i].Top + Y > 570) then
+        if (Block[i].Top + Y > 630) then
         begin
           StopFlag := True;
           ChangeFlag := True;
@@ -315,7 +314,7 @@ begin
     Timer1.Enabled := True;
   end;
 
-  for i := 0 to 19 do
+  for i := 21 Downto 0 do
   begin
     LockedBlockCount := 0;
 
@@ -344,24 +343,21 @@ begin
       begin
         LockedBlock[i, j].Free;
         LockedBlock[i, j] := nil;
-      end;
 
-      for j := i - 1 Downto 0 do
-      begin
-        for k := 0 to 9 do
+        for k := 20 Downto 0 do
         begin
-          if LockedBlock[j, k] <> nil then
+          if LockedBlock[k, j] <> nil then
           begin
             NewLockedBlock := TShape.Create(Game);
             NewLockedBlock.Parent := Game;
             NewLockedBlock.Width := 30;
             NewLockedBlock.Height	:= 30;
-            NewLockedBlock.Left := LockedBlock[j, k].Left;
-            NewLockedBlock.Top := LockedBlock[j, k].Top + 30;
-            NewLockedBlock.Brush.Color := LockedBlock[j, k].Brush.Color;
-            LockedBlock[j, k].Free;
-            LockedBlock[j, k] := nil;
-            LockedBlock[j, k] := NewLockedBLock;
+            NewLockedBlock.Left	:= LockedBlock[k, j].Left;
+            NewLockedBlock.Top := LockedBlock[k, j].Top + 30;
+            NewLockedBlock.Brush.Color := LockedBlock[k, j].Brush.Color;
+            LockedBlock[k - 1, j] := NewLockedBlock;
+            LockedBlock[k, j].Free;
+            LockedBlock[k, j] := nil;
           end;
         end;
       end;
