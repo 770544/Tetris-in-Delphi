@@ -237,12 +237,10 @@ begin
     begin
       if Timer1.Enabled = True then
       begin
-        Timer1.Enabled := False;
         설정 := T설정.Create(Self);
         설정.Show;
       end else
       begin
-        Timer1.Enabled := True;
         설정.Close;
       end;
     end;
