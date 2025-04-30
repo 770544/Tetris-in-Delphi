@@ -7,15 +7,15 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
 type
   T설정 = class(TForm)
-    GostOnOffBtn: TButton;
-    GostLab: TLabel;
+    HardModeBtn: TButton;
+    HardModeLab: TLabel;
     BGMLab: TLabel;
     OpenDialog1: TOpenDialog;
     Option: TPanel;
     BGMAddBtn: TButton;
     배경음악: TComboBox;
-    procedure FormCreate(Sender: TObject);
-    procedure GostOnOffBtnClick(Sender: TObject);
+    Label1: TLabel;
+    procedure HardModeBtnClick(Sender: TObject);
     procedure BGMAddBtnClick(Sender: TObject);
     procedure 배경음악Change(Sender: TObject);
   private
@@ -26,12 +26,13 @@ type
 
 var
   설정: T설정;
-  Gost : boolean;
   BGM : string;
 
 implementation
 
 {$R *.dfm}
+
+uses Game;
 
 procedure T설정.BGMAddBtnClick(Sender: TObject);
 begin
@@ -45,23 +46,18 @@ begin
   end;
 end;
 
-procedure T설정.FormCreate(Sender: TObject);
+procedure T설정.HardModeBtnClick(Sender: TObject);
 begin
-  Gost := True;
-end;
-
-procedure T설정.GostOnOffBtnClick(Sender: TObject);
-begin
-  if Gost = True then
+  if HardMode = True then
   begin
-    Gost := False;
-    GostOnOffBtn.Caption := '키다';
-    GostLab.Caption := '유령: False';
+    HardMode := False;
+    HardModeBtn.Caption := '키다';
+    HardModeLab.Caption := '어려운 조건: False';
   end else
   begin
-    Gost := True;
-    GostOnOffBtn.Caption := '끄다';
-    GostLab.Caption := '유령: True';
+    HardMode := True;
+    HardModeBtn.Caption := '끄다';
+    HardModeLab.Caption := '어려운 조건: True';
   end;
 end;
 

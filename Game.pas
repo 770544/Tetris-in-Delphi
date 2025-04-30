@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Option;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
   TForm1 = class(TForm)
@@ -58,10 +58,13 @@ var
   SoftDrop : boolean;
   Speed : integer;                            // 미노 하강 속도
   StopFlag : boolean;
+  HardMode : boolean;
 
 implementation
 
 {$R *.dfm}
+
+uses Option;
 
 procedure TForm1.AddLockedBlock;
 var
@@ -185,6 +188,7 @@ begin
   Line := 0;
   Level := 0;
   Speed := 600;
+  HardMode := False;
 
   Randomize;
   NextMino := Random(7);
