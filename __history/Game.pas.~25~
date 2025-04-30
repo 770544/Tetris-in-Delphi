@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Option;
 
 type
   TForm1 = class(TForm)
@@ -57,6 +57,7 @@ var
 
   SoftDrop : boolean;
   Speed : integer;                            // 미노 하강 속도
+  StopFlag : boolean;
 
 implementation
 
@@ -191,11 +192,7 @@ begin
 end;
 
 procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-var
-  i : integer;
-  StopFlag : boolean;
 begin
-  StopFlag := False;
 
   case Key of
     VK_Left:
@@ -210,14 +207,19 @@ begin
     VK_Down:
     begin
       if SoftDrop = False then
-        Timer1.Interval := 100;   // 소프트드롭
+      begin
+        Timer1.Interval := 50;   // 소프트드롭
+       end;
 
       SoftDrop := True;
     end;
 
     VK_Space:
     begin
-
+      while StopFlag <> True do
+      begin
+        MoveMino(0, 30);
+      end;
     end;
 
     VK_Shift:
@@ -229,6 +231,18 @@ begin
     begin
       Rotate90;
       Rotate90;         // 180도 회전
+    end;
+
+    VK_Escape:
+    begin
+      if Timer1.Enabled = True then
+      begin
+        설정 := T설정.Create(Self);
+        설정.Show;
+      end else
+      begin
+        설정.Close;
+      end;
     end;
   end;
 end;
@@ -245,10 +259,8 @@ end;
 procedure TForm1.MoveMino(X, Y: integer);
 var
   i, j, k : integer;
-  StopFlag : boolean;       // 프로시져 중지
   ChangeFlag : boolean;     // 블록을 LockedBlock으로 만들어주는 마법
   LockedBlockCount : integer;
-  NewLockedBlock : TShape;
 begin
   StopFlag := False;
   ChangeFlag := False;
@@ -314,53 +326,49 @@ begin
     Timer1.Enabled := True;
   end;
 
-  for i := 21 Downto 0 do
+  i := 21;
+
+  while i >= 0 do
   begin
     LockedBlockCount := 0;
 
+    // 1. 해당 줄이 가득 찼는지 확인
     for j := 0 to 9 do
     begin
       if LockedBlock[i, j] <> nil then
       begin
-        LockedBlockCount := LockedBlockCount + 1;
+        Inc(LockedBlockCount);
       end;
     end;
 
+    // 2. 가득 찬 줄이라면
     if LockedBlockCount = 10 then
     begin
-      Line := Line + 1;
-      LineLab.Caption := '줄: ' + IntToStr(Line);
-
-      if Line mod 50 = 0 then
-      begin
-        Level := Level + 1;
-        Speed := Speed - 20;
-        Timer1.Interval := Timer1.Interval - 20;
-        LevelLab.Caption := '수준: ' + IntToStr(Level);
-      end;
-
+      // 3. 줄 삭제
       for j := 0 to 9 do
       begin
         LockedBlock[i, j].Free;
         LockedBlock[i, j] := nil;
+      end;
 
-        for k := 20 Downto 0 do
+      // 4. 위의 모든 줄을 아래로 한 칸씩 이동
+      for k := i - 1 downto 0 do
+      begin
+        for j := 0 to 9 do
         begin
           if LockedBlock[k, j] <> nil then
           begin
-            NewLockedBlock := TShape.Create(Game);
-            NewLockedBlock.Parent := Game;
-            NewLockedBlock.Width := 30;
-            NewLockedBlock.Height	:= 30;
-            NewLockedBlock.Left	:= LockedBlock[k, j].Left;
-            NewLockedBlock.Top := LockedBlock[k, j].Top + 30;
-            NewLockedBlock.Brush.Color := LockedBlock[k, j].Brush.Color;
-            LockedBlock[k + 1, j] := NewLockedBlock;
-            LockedBlock[k, j].Free;
+            LockedBlock[k, j].Top := LockedBlock[k, j].Top + 30;
+            LockedBlock[k + 1, j] := LockedBlock[k, j];
             LockedBlock[k, j] := nil;
           end;
         end;
       end;
+      // 5. 같은 줄을 다시 검사 (줄들이 내려와서 또 가득 찰 수도 있음)
+    end
+    else
+    begin
+      Dec(i);
     end;
   end;
 end;

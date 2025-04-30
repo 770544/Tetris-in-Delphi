@@ -344,6 +344,16 @@ begin
     // 2. 가득 찬 줄이라면
     if LockedBlockCount = 10 then
     begin
+      Line := Line + 1;
+      LineLab.Caption := '줄: ' + IntToStr(Line);
+
+      if Line mod 50 = 0 then
+      begin
+        Level := Level + 1;
+        LevelLab.Caption := '수준: ' + IntToStr(Level);
+        Timer1.Interval	:= Timer1.Interval - 20;
+      end;
+
       // 3. 줄 삭제
       for j := 0 to 9 do
       begin
