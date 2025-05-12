@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 837
-  Top = 166
+  Left = 776
+  Top = 187
   Caption = #47784#50577#47582#52628#44592
   ClientHeight = 730
   ClientWidth = 300
@@ -15,6 +15,7 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
+  OnShow = FormShow
   TextHeight = 15
   object Menu: TPanel
     Left = 0

@@ -1,31 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.126,C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Users\CODERUN\Desktop\서양전통놀이\모양맞추기.dproj</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.304,C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Unit2.dfm=C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Option.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.941,C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.dfm=C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.315,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.892,C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.dfm=C:\Users\CODERUN\Desktop\서양전통놀이\구성1.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.736,C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.037,C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.dfm=C:\Users\CODERUN\Desktop\서양전통놀이\Game.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.892,C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.pas=C:\Users\CODERUN\Desktop\서양전통놀이\구성1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.037,C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.pas=C:\Users\CODERUN\Desktop\서양전통놀이\Game.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.941,C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.pas=C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.026,=C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Unit2.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.304,C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Unit2.pas=C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Option.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.932,C:\Users\CODERUN\Desktop\서양전통놀이\구성1.dfm=C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.572,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.286,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.301,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.932,C:\Users\CODERUN\Desktop\서양전통놀이\구성1.pas=C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.957,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.076,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.306,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.125,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.078,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.315,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.037,C:\Users\CODERUN\Desktop\서양전통놀이\Game.pas=C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.957,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.294,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.736,C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.014,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.076,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.126,C:\Users\CODERUN\Desktop\서양전통놀이\모양맞추기.dproj=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.736,C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.pas=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.941,C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.dfm=C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.932,C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.dfm=C:\Users\CODERUN\Desktop\서양전통놀이\구성1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.026,=C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Unit2.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.037,C:\Users\CODERUN\Desktop\서양전통놀이\Game.dfm=C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.892,C:\Users\CODERUN\Desktop\서양전통놀이\구성1.dfm=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.286,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.892,C:\Users\CODERUN\Desktop\서양전통놀이\구성1.pas=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.304,C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Option.pas=C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Unit2.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.304,C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Option.dfm=C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Unit2.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.736,C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\구성1.dfm=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.932,C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.pas=C:\Users\CODERUN\Desktop\서양전통놀이\구성1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.941,C:\Users\CODERUN\Desktop\서양전통놀이\Menu1.pas=C:\Users\CODERUN\Desktop\서양전통놀이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.301,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.767,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.078,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.306,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.572,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.014,=C:\Users\CODERUN\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025-05-12 16:00:04.126,C:\Users\CODERUN\Documents\GitHub\Tetris-in-Delphi\Option.pas=</Transaction>
   </Transactions>
 </BorlandProject>
