@@ -201,13 +201,19 @@ var
 begin
   case Key of
     VK_Left:
+    begin
       MoveMino(-30, 0); // 왼쪽으로 한칸 이동
+    end;
 
     VK_Right:
+    begin
       MoveMino(30, 0);  // 오른쪽으로 한칸 이동
+    end;
 
     VK_Up:
+    begin
       Rotate90;         // 90도 회전
+    end;
 
     VK_Down:
     begin
@@ -225,11 +231,6 @@ begin
       begin
         MoveMino(0, 30);
       end;
-    end;
-
-    VK_Shift:
-    begin
-      // 홀드
     end;
 
     Ord('A'):
