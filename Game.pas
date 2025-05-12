@@ -399,7 +399,7 @@ var
 begin
   RotateStopFlag := False;
 
-  if NowMino <> 1 then
+  if NowMino <> 1 then            // Range check error 방지
   begin
     for I := 0 to 3 do
     begin
@@ -423,7 +423,7 @@ begin
     end;
   end;
 
-  if RotateStopFlag = False then
+  if RotateStopFlag = False then  // 90도 회전
   begin
     for I := 0 to 3 do
     begin
@@ -434,6 +434,7 @@ begin
 
         Block[i].Left := Block[1].Left + DistanceY;
         Block[i].Top := Block[1].Top - DistanceX;
+        // (x, y) -> (y, -x)
       end;
     end;
   end;
