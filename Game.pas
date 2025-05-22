@@ -423,7 +423,7 @@ begin
     end;
   end;
 
-  if RotateStopFlag = False then  // 90도 회전
+  if (RotateStopFlag = False) and (NowMino <> 1) then  // 90도 회전
   begin
     for I := 0 to 3 do
     begin
